@@ -47,22 +47,28 @@ pre {
   @apply font-semibold;
 }
 
-/* ===== Card Hover Effects (Homepage) ===== */
-
-/* Consistent subtle hover for all Starlight cards */
+/* ===== DISABLE Card Hover Effects ===== */
+/* Completely disable any hover transforms on cards to prevent jumping */
+.card,
 .sl-link-card,
-.card {
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+[class*="card"],
+.sl-flex.card {
+  transform: none !important;
+  transition: none !important;
 }
 
+.card:hover,
 .sl-link-card:hover,
-.card:hover {
-  border-color: var(--sl-color-accent);
-  box-shadow: 0 0 0 1px var(--sl-color-accent);
+[class*="card"]:hover,
+.sl-flex.card:hover {
+  transform: none !important;
+  translate: none !important;
+  scale: none !important;
 }
 
-/* Disable any transform-based hover to prevent layout shifts */
-.sl-link-card:hover,
-.card:hover {
+/* Override any Starlight stagger animations that cause movement */
+.sl-markdown-content .card,
+article .card {
+  animation: none !important;
   transform: none !important;
 }
