@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  lint-docs:
-    name: Lint Documentation
+  build-and-test:
+    name: Build & Test Documentation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,9 +25,58 @@ jobs:
         run: npm ci
         working-directory: ./docs
 
-      - name: Build documentation (validates all content)
+      - name: Build documentation
         run: npm run build
         working-directory: ./docs
+
+      - name: Check for broken links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >
+            --base ./docs/dist
+            --exclude-path ./docs/dist/pagefind
+            --exclude 'linkedin.com'
+            --exclude 'udemy.com'
+            --exclude 'localhost'
+            --no-progress
+            './docs/dist/**/*.html'
+          fail: true
+
+      - name: Upload build artifact for e2e
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-dist
+          path: ./docs/dist
+          retention-days: 1
+
+  lighthouse:
+    name: Lighthouse Audit
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-dist
+          path: ./docs/dist
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install serve
+        run: npm install -g serve
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
 
   validate-plugins:
     name: Validate Plugin Structure
@@ -39,11 +88,13 @@ jobs:
       - name: Check plugin headers
         run: |
           echo "Validating plugin file headers..."
+          found_plugins=false
           for plugin_dir in plugins/*/; do
             if [ -d "$plugin_dir" ]; then
               plugin_name=$(basename "$plugin_dir")
               main_file="$plugin_dir$plugin_name.php"
               if [ -f "$main_file" ]; then
+                found_plugins=true
                 echo "Checking $main_file..."
                 if grep -q "Plugin Name:" "$main_file"; then
                   echo "✓ $plugin_name has valid plugin header"
@@ -54,7 +105,10 @@ jobs:
               fi
             fi
           done
-          echo "All plugins validated successfully!"
+          if [ "$found_plugins" = false ]; then
+            echo "No plugins found yet - skipping validation"
+          fi
+          echo "Plugin validation complete!"
 
   php-syntax:
     name: PHP Syntax Check
@@ -71,5 +125,10 @@ jobs:
       - name: Check PHP syntax
         run: |
           echo "Checking PHP syntax in plugins..."
-          find plugins -name "*.php" -print0 | xargs -0 -n1 php -l || true
+          php_files=$(find plugins -name "*.php" 2>/dev/null || true)
+          if [ -z "$php_files" ]; then
+            echo "No PHP files found yet - skipping syntax check"
+          else
+            echo "$php_files" | xargs -n1 php -l
+          fi
           echo "PHP syntax check complete!"
