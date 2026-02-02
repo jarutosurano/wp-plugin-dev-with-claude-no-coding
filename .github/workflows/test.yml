@@ -33,11 +33,12 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: >
-            --base ./docs/dist
-            --exclude-path ./docs/dist/pagefind
+            --base https://jarutosurano.github.io/wp-plugin-dev-with-claude-no-coding
+            --exclude-path 'pagefind'
             --exclude 'linkedin.com'
             --exclude 'udemy.com'
             --exclude 'localhost'
+            --exclude 'github.com/jarutosurano'
             --no-progress
             './docs/dist/**/*.html'
           fail: true
