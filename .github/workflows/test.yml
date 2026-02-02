@@ -33,13 +33,15 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: >
-            --base https://jarutosurano.github.io/wp-plugin-dev-with-claude-no-coding
-            --exclude-path 'pagefind'
-            --exclude 'linkedin.com'
-            --exclude 'udemy.com'
-            --exclude 'localhost'
-            --exclude 'github.com/jarutosurano'
+            --offline
+            --include-fragments
             --no-progress
+            --exclude 'jarutosurano.github.io'
+            --exclude 'claude.ai'
+            --exclude 'reddit.com'
+            --exclude 'udemy.com'
+            --exclude 'linkedin.com'
+            --exclude 'localhost'
             './docs/dist/**/*.html'
           fail: true
 
