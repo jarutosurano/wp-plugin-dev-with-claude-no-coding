@@ -42,11 +42,6 @@ pre {
   }
 }
 
-/* Card hover effects */
-.card:hover {
-  @apply transform scale-[1.02] transition-transform duration-200;
-}
-
 /* Badge styling for plugin status */
 [data-badge] {
   @apply font-semibold;
