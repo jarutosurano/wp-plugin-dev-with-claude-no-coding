@@ -12,6 +12,9 @@ export default defineConfig({
       title: 'WP Plugin Dev Journey',
       description: 'Learning WordPress Plugin Development with Claude AI - No Coding Required',
       favicon: '/favicon.png',
+      components: {
+        ThemeSelect: './src/components/ThemeSelect.astro',
+      },
       social: [
         {
           icon: 'github',
