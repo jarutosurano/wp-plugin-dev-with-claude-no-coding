@@ -10,6 +10,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Nothing yet
 
+## [0.1.1] - 2025-02-02
+
+### Added
+- Automated release workflow (creates GitHub releases on tag push)
+- Changelog page in documentation site
+- Custom inline theme toggle (Light/Dark/System buttons)
+
+### Fixed
+- Card hover effect on homepage (now uses subtle border glow instead of scale transform)
+- Lighthouse CI base path configuration
+- Lychee link checker running in offline mode
+
+### Changed
+- Theme selector from dropdown to inline button group
+
 ## [0.1.0] - 2025-02-01
 
 ### Added
@@ -40,5 +55,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **MINOR** version: New plugins or significant features added
 - **PATCH** version: Bug fixes, documentation updates, small improvements
 
-[Unreleased]: https://github.com/jarutosurano/wp-plugin-dev-with-claude-no-coding/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/jarutosurano/wp-plugin-dev-with-claude-no-coding/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/jarutosurano/wp-plugin-dev-with-claude-no-coding/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/jarutosurano/wp-plugin-dev-with-claude-no-coding/releases/tag/v0.1.0
