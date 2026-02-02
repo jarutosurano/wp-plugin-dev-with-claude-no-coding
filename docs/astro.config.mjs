@@ -44,6 +44,7 @@ export default defineConfig({
           items: [
             { label: 'Useful Commands', slug: 'reference/commands' },
             { label: 'Resources', slug: 'reference/resources' },
+            { label: 'Changelog', slug: 'reference/changelog' },
           ],
         },
       ],
