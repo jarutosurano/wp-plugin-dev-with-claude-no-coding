@@ -46,3 +46,23 @@ pre {
 [data-badge] {
   @apply font-semibold;
 }
+
+/* ===== Card Hover Effects (Homepage) ===== */
+
+/* Consistent subtle hover for all Starlight cards */
+.sl-link-card,
+.card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sl-link-card:hover,
+.card:hover {
+  border-color: var(--sl-color-accent);
+  box-shadow: 0 0 0 1px var(--sl-color-accent);
+}
+
+/* Disable any transform-based hover to prevent layout shifts */
+.sl-link-card:hover,
+.card:hover {
+  transform: none !important;
+}
