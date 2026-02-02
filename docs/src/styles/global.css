@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* Custom styles that work alongside Starlight's theming */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sl-color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sl-color-gray-4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sl-color-gray-3);
+}
+
+/* Code block enhancements */
+pre {
+  @apply rounded-lg;
+}
+
+/* Table responsiveness */
+.sl-markdown-content table {
+  @apply w-full overflow-x-auto block;
+}
+
+@media (min-width: 768px) {
+  .sl-markdown-content table {
+    @apply table;
+  }
+}
+
+/* Card hover effects */
+.card:hover {
+  @apply transform scale-[1.02] transition-transform duration-200;
+}
+
+/* Badge styling for plugin status */
+[data-badge] {
+  @apply font-semibold;
+}

@@ -1,0 +1,5 @@
+# Plugins directory
+# Each plugin will be in its own subdirectory, e.g.:
+# plugins/01-gift-wrap/
+# plugins/02-wallet-system/
+# etc.

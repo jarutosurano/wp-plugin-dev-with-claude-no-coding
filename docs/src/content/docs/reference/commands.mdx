@@ -1,0 +1,116 @@
+---
+title: Useful Commands
+description: Quick reference for commonly used commands in this project
+---
+
+import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
+
+## Documentation Commands
+
+<Tabs>
+  <TabItem label="Development">
+    ```bash
+    # Start local development server
+    cd docs && npm run dev
+
+    # Build for production
+    cd docs && npm run build
+
+    # Preview production build
+    cd docs && npm run preview
+    ```
+  </TabItem>
+  <TabItem label="Git">
+    ```bash
+    # Create new branch for a plugin
+    git checkout -b plugin/plugin-name
+
+    # Commit with conventional format
+    git commit -m "feat(plugin-name): add initial implementation"
+
+    # Push and create PR
+    git push -u origin HEAD
+    gh pr create
+    ```
+  </TabItem>
+</Tabs>
+
+## WordPress Testing
+
+### WP Playground (Browser)
+
+No installation needed - visit [playground.wordpress.net](https://playground.wordpress.net)
+
+### WP-CLI Commands
+
+```bash
+# Install plugin from zip
+wp plugin install ./plugins/my-plugin.zip --activate
+
+# List all plugins
+wp plugin list
+
+# Check plugin status
+wp plugin status my-plugin
+
+# Deactivate plugin
+wp plugin deactivate my-plugin
+
+# Generate plugin scaffold
+wp scaffold plugin my-plugin
+```
+
+## Claude Code Commands
+
+```bash
+# Start Claude Code in project directory
+claude
+
+# Start with specific context
+claude "help me develop a WordPress plugin for..."
+
+# Resume previous conversation
+claude --resume
+```
+
+## GitHub Actions
+
+```bash
+# View workflow runs
+gh run list
+
+# View specific run details
+gh run view [run-id]
+
+# Manually trigger workflow
+gh workflow run [workflow-name]
+```
+
+## Plugin Development
+
+### Create New Plugin Structure
+
+```bash
+# Create plugin directory with standard structure
+mkdir -p plugins/my-plugin/{includes,assets/{css,js},languages}
+touch plugins/my-plugin/my-plugin.php
+touch plugins/my-plugin/readme.txt
+```
+
+### Standard Plugin Header
+
+```php
+<?php
+/**
+ * Plugin Name: My Plugin
+ * Plugin URI: https://github.com/jarutosurano/wp-plugin-dev-with-claude-no-coding
+ * Description: Brief description of the plugin
+ * Version: 1.0.0
+ * Author: Your Name
+ * Author URI: https://yoursite.com
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: my-plugin
+ * Domain Path: /languages
+ */
+```

@@ -1,0 +1,63 @@
+---
+title: Setup & Prerequisites
+description: Tools and setup required for the WordPress plugin development course
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+
+## Prerequisites
+
+Before starting this course, ensure you have:
+
+- **Claude AI Account** (free tier works for basics)
+- **Claude Pro Subscription** ($20/month) for advanced modules with Claude Code
+- Basic understanding of WordPress (helpful but not required)
+- Git installed on your machine
+- Node.js (v18+) for local documentation development
+
+## Initial Setup
+
+<Steps>
+1. **Clone this repository**
+   ```bash
+   git clone https://github.com/jarutosurano/wp-plugin-dev-with-claude-no-coding.git
+   cd wp-plugin-dev-with-claude-no-coding
+   ```
+
+2. **Install WordPress Agent Skills** (already done)
+   The repository comes with WordPress agent skills pre-installed in `.claude/skills/`
+
+3. **Set up local documentation** (optional)
+   ```bash
+   cd docs
+   npm install
+   npm run dev
+   ```
+
+4. **Install WP Playground** for testing
+   Visit [playground.wordpress.net](https://playground.wordpress.net) - no installation needed!
+</Steps>
+
+## WordPress Agent Skills Installed
+
+<Aside type="tip">
+  These skills help Claude understand WordPress best practices and generate standards-compliant code.
+</Aside>
+
+| Skill | Purpose |
+|-------|---------|
+| `wp-plugin-development` | Plugin architecture, hooks, settings API, security |
+| `wp-block-development` | Gutenberg blocks, `block.json`, attributes |
+| `wp-rest-api` | REST API routes, authentication, responses |
+| `wp-playground` | Instant local testing environments |
+| `wp-performance` | Caching, optimization, profiling |
+| `wp-phpstan` | Static analysis for WordPress |
+| `wp-wpcli-and-ops` | WP-CLI commands and automation |
+
+## Testing Workflow
+
+Every plugin developed will be tested using:
+
+1. **WP Playground** - Instant browser-based WordPress environment
+2. **Local staging** - For more complex integrations
+3. **Automated checks** - Via GitHub Actions before deployment

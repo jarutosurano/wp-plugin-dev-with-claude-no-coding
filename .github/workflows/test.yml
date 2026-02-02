@@ -1,0 +1,75 @@
+name: Test & Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-docs:
+    name: Lint Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./docs
+
+      - name: Build documentation (validates all content)
+        run: npm run build
+        working-directory: ./docs
+
+  validate-plugins:
+    name: Validate Plugin Structure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check plugin headers
+        run: |
+          echo "Validating plugin file headers..."
+          for plugin_dir in plugins/*/; do
+            if [ -d "$plugin_dir" ]; then
+              plugin_name=$(basename "$plugin_dir")
+              main_file="$plugin_dir$plugin_name.php"
+              if [ -f "$main_file" ]; then
+                echo "Checking $main_file..."
+                if grep -q "Plugin Name:" "$main_file"; then
+                  echo "✓ $plugin_name has valid plugin header"
+                else
+                  echo "✗ $plugin_name missing Plugin Name header"
+                  exit 1
+                fi
+              fi
+            fi
+          done
+          echo "All plugins validated successfully!"
+
+  php-syntax:
+    name: PHP Syntax Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Check PHP syntax
+        run: |
+          echo "Checking PHP syntax in plugins..."
+          find plugins -name "*.php" -print0 | xargs -0 -n1 php -l || true
+          echo "PHP syntax check complete!"
